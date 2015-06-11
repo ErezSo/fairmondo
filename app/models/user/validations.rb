@@ -27,5 +27,7 @@ module User::Validations
     validates :about_me, length: { maximum: 2500, tokenizer: tokenizer_without_html }
 
     validates :type, inclusion: { in: ['LegalEntity'] }, if: :is_ngo?
+
+    validates :unified_transport_maximum_articles, numericality: { greater_than_or_equal_to: 1 }
   end
 end

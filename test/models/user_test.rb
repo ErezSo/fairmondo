@@ -101,6 +101,7 @@ describe User do
       it { user.must validate_presence_of :email }
       it { user.must validate_presence_of :nickname }
       it { user.must validate_uniqueness_of :nickname }
+      it { user.must validate_numericality_of :unified_transport_maximum_articles }
     end
 
     describe 'on create' do
