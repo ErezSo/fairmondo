@@ -4,8 +4,16 @@ include FastBillStubber
 describe FastbillAPI do
   describe 'methods' do
     let(:business_transaction) { BusinessTransaction.new }
-    let(:db_business_transaction) { FactoryGirl.create :business_transaction }
-    let(:seller) { db_business_transaction.seller }
+
+    let(:seller) { FactoryGirl.create :legal_entity, :paypal_data }
+    let(:db_business_transaction) do
+      FactoryGirl.create :business_transaction, seller: seller
+    end
+
+    let(:private_seller) { FactoryGirl.create :private_user, :paypal_data, :fastbill }
+    let(:private_business_transaction) do
+      FactoryGirl.create :business_transaction, seller: private_seller
+    end
 
     describe '::fastbill_chain' do
       it 'should find seller of transaction' do
@@ -15,9 +23,17 @@ describe FastbillAPI do
 
       describe 'when seller is an NGO' do
         it 'should not contact Fastbill' do
-          Fastbill::Automatic::Base.expects(:perform).never
           User.any_instance.stubs(:ngo).returns(:true)
           api = FastbillAPI.new db_business_transaction
+          Fastbill::Automatic::Base.expects(:perform).never
+          api.fastbill_chain
+        end
+      end
+
+      describe 'when seller is a private user' do
+        it 'should not contact Fastbill' do
+          api = FastbillAPI.new private_business_transaction
+          Fastbill::Automatic::Base.expects(:perform).once
           api.fastbill_chain
         end
       end
@@ -36,7 +52,6 @@ describe FastbillAPI do
         end
 
         describe 'and has no Fastbill profile' do
-          let(:db_business_transaction) { FactoryGirl.create :business_transaction, :clear_fastbill }
           it 'should create new Fastbill profile' do
             db_business_transaction # to trigger observers before
             api = FastbillAPI.new db_business_transaction
