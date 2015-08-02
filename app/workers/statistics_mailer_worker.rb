@@ -29,8 +29,7 @@ class StatisticsMailerWorker
 
   def perform
     statistics = Statistic.new
-    puts statistics
-    puts statistics.revenue_last_month
-    logger.info(statistics.revenue_last_month[:revenue] / 100.0)
+    message = StatisticsMailer.last_months_numbers_email(statistics.revenue_last_month)
+    message.deliver!
   end
 end
