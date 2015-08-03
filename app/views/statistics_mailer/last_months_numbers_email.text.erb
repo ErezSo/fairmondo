@@ -1,8 +1,23 @@
-Dies sind die Statistiken für den Fairmondo-Marktplatz für den <%= @month %>.
+Hallo,
+
+hier die aktuellen Zahlen für den Fairmondo-Marktplatz im Monat <%= I18n.l @month, format: '%B' %>:
 
 Umsatz: <%= @revenue_hash[:revenue] / 100.0 %>
 Gebühr: <%= @revenue_hash[:fee] / 100.0 %>
 Faires Prozent: <%= @revenue_hash[:fair] / 100.0 %>
+
+Neue Nutzer: <%= @new_users %>
+
+
+Insgesamt haben wir heute, am <%= I18n.l @date %>, auf dem Marktplatz:
+
+Geschäftskunden: <%= @legal_entities_count %>
+Privatkunden: <%= @private_users_count %>
+Artikel von Geschäftskunden: <%= @legal_entity_articles_count %>
+Artikel von Privatkunden: <%= @private_user_articles_count %>
+Eingestellter Warenwert (ohne Artikelstückzahlen): <%= @sum_article_prices %> Euro
+Eingestellter Warenwert (mit Artikelstückzahlen): <%= @sum_article_prices_with_quantity %> Euro
+
 
 Viele Grüße
 Dein Fairmondo-Technik-Team

@@ -24,12 +24,12 @@ class StatisticsMailerWorker
   include Sidetiq::Schedulable
 
   recurrence do
-    hourly
+    daily
   end
 
   def perform
     statistics = Statistic.new
-    message = StatisticsMailer.last_months_numbers_email(statistics.revenue_last_month)
+    message = StatisticsMailer.last_months_numbers_email(statistics)
     message.deliver!
   end
 end
