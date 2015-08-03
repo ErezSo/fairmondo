@@ -24,7 +24,7 @@ class StatisticsMailerWorker
   include Sidetiq::Schedulable
 
   recurrence do
-    minutely
+    hourly
   end
 
   def perform
