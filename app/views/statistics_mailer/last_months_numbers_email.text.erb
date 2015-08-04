@@ -1,22 +1,17 @@
 Hallo,
 
-hier die aktuellen Zahlen für den Fairmondo-Marktplatz im Monat <%= I18n.l @month, format: '%B' %>:
+für den <%= I18n.l @month, format: '%B' %> sind die aktuellen Zahlen für den Fairmondo-Marktplatz:
 
-Umsatz: <%= @revenue_hash[:revenue] / 100.0 %>
-Gebühr: <%= @revenue_hash[:fee] / 100.0 %>
-Faires Prozent: <%= @revenue_hash[:fair] / 100.0 %>
+Umsatz: <%= @revenue %>
+Gebühr: <%= @fee %>
+Faires Prozent: <%= @fair %>
 
 Neue Nutzer: <%= @new_users %>
 
 
-Insgesamt haben wir heute, am <%= I18n.l @date %>, auf dem Marktplatz:
+Am <%= I18n.l @date %> waren auf dem Marktplatz <%= @legal_entities_count + @private_users_count %> Nutzer angemeldet, davon <%= @legal_entities_count %> gewerbliche und <%= @private_users_count %> private Nutzer.
 
-Geschäftskunden: <%= @legal_entities_count %>
-Privatkunden: <%= @private_users_count %>
-Artikel von Geschäftskunden: <%= @legal_entity_articles_count %>
-Artikel von Privatkunden: <%= @private_user_articles_count %>
-Eingestellter Warenwert (ohne Artikelstückzahlen): <%= @sum_article_prices %> Euro
-Eingestellter Warenwert (mit Artikelstückzahlen): <%= @sum_article_prices_with_quantity %> Euro
+Insgesamt haben diese Nutzer <%= @legal_entity_articles_count + @private_user_articles_count %> Artikel eingestellt, davon <%= @legal_entity_articles_count %> von gewerblichen und <%= @private_user_articles_count %> von privaten Nutzern.
 
 
 Viele Grüße
