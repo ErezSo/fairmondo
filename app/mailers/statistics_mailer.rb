@@ -19,5 +19,4 @@ class StatisticsMailer < ActionMailer::Base
     mail(to: EMAIL_ADDRESSES['StatisticsMailer']['mailer_recipient'],
          subject: "#{I18n.l @month, format: '%B'}-Statistiken für den Fairmondo-Marktplatz")
   end
-
 end

@@ -28,8 +28,7 @@ class StatisticsMailerWorker
   end
 
   def perform
-    statistics = Statistic.new
-    message = StatisticsMailer.last_months_numbers_email(statistics)
+    message = StatisticsMailer.last_months_numbers_email(Statistic.new)
     message.deliver!
   end
 end
